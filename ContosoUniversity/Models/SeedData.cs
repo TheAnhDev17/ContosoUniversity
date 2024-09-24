@@ -122,7 +122,7 @@ public static class SeedData
               );
            context.SaveChanges();
 
-            if (context.Courses.Any())
+            if (context.Enrollments.Any())
             {
                 return;   // DB has been seeded
             }

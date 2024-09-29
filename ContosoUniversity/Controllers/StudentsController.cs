@@ -29,7 +29,8 @@ namespace ContosoUniversity.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-
+            
+            // searchString chỉ khác null khi nhấn button search, case else chỉ xảy ra khi chuyển page
             if (searchString != null)
             {
                 pageNumber = 1;

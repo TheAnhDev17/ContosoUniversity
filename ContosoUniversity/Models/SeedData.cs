@@ -122,82 +122,183 @@ public static class SeedData
               );
            context.SaveChanges();
 
-            if (context.Enrollments.Any())
+            if (context.Instructors.Any())
             {
                 return;   // DB has been seeded
             }
-            context.Enrollments.AddRange(
-                new Enrollment
+
+            context.Instructors.AddRange(
+                new Instructor
                 {
-                    StudentID = 1,
-                    CourseID = 1050,
-                    Grade = Grade.A
-                }, 
-                new Enrollment
+                    FirstMidName = "Kim",
+                    LastName = "Abercrombie",
+                    HireDate = DateTime.Parse("1995-03-11")
+                },
+                new Instructor
                 {
-                    StudentID = 1,
-                    CourseID = 4022,
-                    Grade = Grade.C
-                }, 
-                new Enrollment
+                    FirstMidName = "Fadi",
+                    LastName = "Fakhouri",
+                    HireDate = DateTime.Parse("2002-07-06")
+                },
+                new Instructor
                 {
-                    StudentID = 1,
-                    CourseID = 4041,
-                    Grade = Grade.B
-                }, 
-                new Enrollment
+                    FirstMidName = "Roger",
+                    LastName = "Harui",
+                    HireDate = DateTime.Parse("1998-07-01")
+                },
+                new Instructor
                 {
-                    StudentID = 2,
-                    CourseID = 1045,
-                    Grade = Grade.B
-                }, 
-                new Enrollment
+                    FirstMidName = "Candace",
+                    LastName = "Kapoor",
+                    HireDate = DateTime.Parse("2001-01-15")
+                },
+                new Instructor
                 {
-                    StudentID = 2,
-                    CourseID = 3141,
-                    Grade = Grade.F
-                }, 
-                new Enrollment
-                {
-                    StudentID = 2,
-                    CourseID = 2021,
-                    Grade = Grade.F
-                }, 
-                new Enrollment
-                {
-                    StudentID = 3,
-                    CourseID = 1050
-                }, 
-                new Enrollment
-                {
-                    StudentID = 4,
-                    CourseID = 1050
-                }, 
-                new Enrollment
-                {
-                    StudentID = 4,
-                    CourseID = 4022,
-                    Grade = Grade.F
-                }, 
-                new Enrollment
-                {
-                    StudentID = 5,
-                    CourseID = 4041,
-                    Grade = Grade.C
-                }, 
-                new Enrollment
-                {
-                    StudentID = 6,
-                    CourseID = 1045
-                }, 
-                new Enrollment
-                {
-                    StudentID = 7,
-                    CourseID = 3141,
-                    Grade = Grade.A
+                    FirstMidName = "Roger",
+                    LastName = "Zheng",
+                    HireDate = DateTime.Parse("2004-02-12")
                 }
-               );
+            );
+
             context.SaveChanges();
+
+            if (context.Departments.Any())
+            {
+                return;   // DB has been seeded
+            }
+            var instructors = context.Instructors.ToList();
+
+            context.Departments.AddRange(
+                 new Department
+                 {
+                     Name = "English",
+                     Budget = 350000,
+                     StartDate = DateTime.Parse("2007-09-01"),
+                     InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
+                 },
+                 new Department
+                 {
+                     Name = "Mathematics",
+                     Budget = 100000,
+                     StartDate = DateTime.Parse("2007-09-01"),
+                     InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID
+                 },
+                 new Department
+                 {
+                     Name = "Engineering",
+                     Budget = 350000,
+                     StartDate = DateTime.Parse("2007-09-01"),
+                     InstructorID = instructors.Single(i => i.LastName == "Harui").ID
+                 },
+                 new Department
+                 {
+                     Name = "Economics",
+                     Budget = 100000,
+                     StartDate = DateTime.Parse("2007-09-01"),
+                     InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID
+                 }
+             );
+            context.SaveChanges();
+
+            if (context.OfficeAssignments.Any())
+            {
+                return;  
+            }
+
+            context.OfficeAssignments.AddRange(
+                new OfficeAssignment
+                {
+                    InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID,
+                    Location = "Smith 17"
+                },
+                new OfficeAssignment
+                {
+                    InstructorID = instructors.Single(i => i.LastName == "Harui").ID,
+                    Location = "Gowan 27"
+                },
+                new OfficeAssignment
+                {
+                    InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID,
+                    Location = "Thompson 304"
+                }
+            );
+
+            context.SaveChanges();
+
+            if (context.CourseAssignments.Any())
+            {
+                return;
+            }
+
+            var courses = context.Courses.ToList();
+
+            context.CourseAssignments.AddRange(
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Harui").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Macroeconomics").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Calculus").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Trigonometry").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Harui").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Composition").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
+                },
+                new CourseAssignment
+                {
+                    CourseID = courses.Single(c => c.Title == "Literature").CourseID,
+                    InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
+                }
+            );
+
+            context.SaveChanges();
+
+            if (context.Enrollments.Any())
+            {
+                return;
+            }
+
+            context.Enrollments.AddRange(
+                new Enrollment { StudentID = 1, CourseID = 1050, Grade = Grade.A },
+                new Enrollment { StudentID = 1, CourseID = 4022, Grade = Grade.C },
+                new Enrollment { StudentID = 1, CourseID = 4041, Grade = Grade.B },
+                new Enrollment { StudentID = 2, CourseID = 1045, Grade = Grade.B },
+                new Enrollment { StudentID = 2, CourseID = 3141, Grade = Grade.F },
+                new Enrollment { StudentID = 2, CourseID = 2021, Grade = Grade.F },
+                new Enrollment { StudentID = 3, CourseID = 1050 },
+                new Enrollment { StudentID = 4, CourseID = 1050 },
+                new Enrollment { StudentID = 4, CourseID = 4022, Grade = Grade.F },
+                new Enrollment { StudentID = 5, CourseID = 4041, Grade = Grade.C },
+                new Enrollment { StudentID = 6, CourseID = 1045 },
+                new Enrollment { StudentID = 7, CourseID = 3141, Grade = Grade.A }
+            );
+            context.SaveChanges();
+
+
         }
     }
 }

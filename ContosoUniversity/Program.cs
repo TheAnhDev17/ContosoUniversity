@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
-using MVCMOVIE.Models;
+using ContosoUniversity.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SchoolContext>(options =>

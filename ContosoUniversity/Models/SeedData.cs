@@ -14,7 +14,7 @@ namespace ContosoUniversity.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<SchoolContext>>()))
             {
-                if (context.Students.Any())
+                if (context.People.Any())
                 {
                     return;   // DB has been seeded
                 }
@@ -41,7 +41,7 @@ namespace ContosoUniversity.Models
 
                 foreach (Student s in students)
                 {
-                    context.Students.Add(s);
+                    context.People.Add(s);
                 }
                 context.SaveChanges();
 
@@ -61,7 +61,7 @@ namespace ContosoUniversity.Models
 
                 foreach (Instructor i in instructors)
                 {
-                    context.Instructors.Add(i);
+                    context.People.Add(i);
                 }
                 context.SaveChanges();
 
@@ -183,56 +183,56 @@ namespace ContosoUniversity.Models
                 var enrollments = new Enrollment[]
                     {
                         new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Alexander").Id,
+                            StudentID = students.Single(s => s.LastName == "Alexander").ID,
                             CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
                             Grade = Grade.A
                         },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Alexander").Id,
+                            StudentID = students.Single(s => s.LastName == "Alexander").ID,
                             CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID,
                             Grade = Grade.C
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Alexander").Id,
+                            StudentID = students.Single(s => s.LastName == "Alexander").ID,
                             CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                                StudentID = students.Single(s => s.LastName == "Alonso").Id,
+                                StudentID = students.Single(s => s.LastName == "Alonso").ID,
                             CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                                StudentID = students.Single(s => s.LastName == "Alonso").Id,
+                                StudentID = students.Single(s => s.LastName == "Alonso").ID,
                             CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Alonso").Id,
+                            StudentID = students.Single(s => s.LastName == "Alonso").ID,
                             CourseID = courses.Single(c => c.Title == "Composition" ).CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Anand").Id,
+                            StudentID = students.Single(s => s.LastName == "Anand").ID,
                             CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Anand").Id,
+                            StudentID = students.Single(s => s.LastName == "Anand").ID,
                             CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Barzdukas").Id,
+                            StudentID = students.Single(s => s.LastName == "Barzdukas").ID,
                             CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Li").Id,
+                            StudentID = students.Single(s => s.LastName == "Li").ID,
                             CourseID = courses.Single(c => c.Title == "Composition").CourseID,
                             Grade = Grade.B
                             },
                             new Enrollment {
-                            StudentID = students.Single(s => s.LastName == "Justice").Id,
+                            StudentID = students.Single(s => s.LastName == "Justice").ID,
                             CourseID = courses.Single(c => c.Title == "Literature").CourseID,
                             Grade = Grade.B
                             }
@@ -242,7 +242,7 @@ namespace ContosoUniversity.Models
                 {
                     var enrollmentInDataBase = context.Enrollments.Where(
                         s =>
-                                s.Student.Id == e.StudentID &&
+                                s.Student.ID == e.StudentID &&
                                 s.Course.CourseID == e.CourseID).SingleOrDefault();
                     if (enrollmentInDataBase == null)
                     {

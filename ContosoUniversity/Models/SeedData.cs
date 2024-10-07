@@ -14,7 +14,7 @@ namespace ContosoUniversity.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<SchoolContext>>()))
             {
-                if (context.People.Any())
+                if (context.Students.Any())
                 {
                     return;   // DB has been seeded
                 }
@@ -41,7 +41,7 @@ namespace ContosoUniversity.Models
 
                 foreach (Student s in students)
                 {
-                    context.People.Add(s);
+                    context.Students.Add(s);
                 }
                 context.SaveChanges();
 
@@ -61,7 +61,7 @@ namespace ContosoUniversity.Models
 
                 foreach (Instructor i in instructors)
                 {
-                    context.People.Add(i);
+                    context.Instructors.Add(i);
                 }
                 context.SaveChanges();
 
